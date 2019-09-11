@@ -1,0 +1,27 @@
+import React from 'react';
+import { NavLink } from 'react-router-dom'; //con esto tenemos "active class" cuando estamos dentro de un link seleccionado
+import { connect } from 'react-redux';
+import { signOut } from '../../store/actions/authActions';
+ 
+const SignedInLinks = (props) => {
+    return (
+         <ul className="right">
+             <li><NavLink to='/create'>New Project</NavLink></li>
+             <li><a onClick={ props.signOut }>Log Out</a></li>
+             <li>
+                 <NavLink to='/' className="btn btn-floating blue lighten-1">
+                     { props.profile.initials } 
+                </NavLink>
+             </li>
+         </ul>
+    )
+}
+
+//with mapDispatchToProps we can access now to signOut on the props of SignedInLinks.js component
+const mapDispatchToProps = (dispatch) => {
+    return {
+        signOut: () => dispatch(signOut())
+    }
+}
+
+export default connect(null, mapDispatchToProps)(SignedInLinks);
